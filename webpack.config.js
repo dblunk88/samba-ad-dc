@@ -100,6 +100,8 @@ var info = {
         "fsmo/fsmo.html",
         "gpo/gpo.html",
         "manifest.json",
+        "po.manifest.js",
+        "po.js"
     ],
 };
 
@@ -150,7 +152,21 @@ info.files.forEach(function(value) {
 // info.files is now files_to_copy
 
 var plugins = [
-    new CopyPlugin({ patterns: files_to_copy }), // Changed syntax for CopyPlugin
+    new CopyPlugin({
+        patterns: [
+            ...files_to_copy,
+            {
+                from: path.resolve(nodedir, "@patternfly/patternfly/assets/fonts"),
+                to: path.resolve(distdir, "fonts"),
+                globOptions: {
+                    ignore: [
+                        '**/*.txt',
+                        '**/*.md'
+                    ]
+                }
+            }
+        ]
+    }),
     new MiniCssExtractPlugin({ filename: "[name].css" }), // Used MiniCssExtractPlugin directly
     // Removed redundant new MiniCssExtractPlugin()
 ];

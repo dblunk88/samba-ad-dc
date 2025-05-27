@@ -22,7 +22,7 @@ import "./lib/patternfly-4-cockpit.scss";
 import "core-js/stable";
 
 import React from 'react';
-import ReactDOM from 'react-dom';
+import ReactDOM from 'react-dom/client';
 import { Application } from './app.jsx';
 /*
  * PF4 overrides need to come after the JSX components imports because
@@ -34,5 +34,7 @@ import { Application } from './app.jsx';
 import "./lib/patternfly-4-overrides.scss";
 
 document.addEventListener("DOMContentLoaded", function () {
-    ReactDOM.render(React.createElement(Application, {}), document.getElementById('app'));
+    const container = document.getElementById('app');
+    const root = ReactDOM.createRoot(container);
+    root.render(React.createElement(Application, {}));
 });
